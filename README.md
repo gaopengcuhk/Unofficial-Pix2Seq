@@ -10,8 +10,11 @@ Starting from DETR, we add bounding box quantization over normalized coordinate,
 ## How to use?
 Install packages following original DETR and command line is same as DETR.
 
-## Released at 26th, Seq
+## Released at 8pm, 26th, Seq
 Problem to be solved : 1) better logging 2) correct padding, end of sentence, start of sentence token 3) efficient padding 4) better organization of code 5) fixed order of bounding box 6) shared dictionary between position and category
+
+## Released at 10pm, 26th, Seq
+Problem to be solved: 1) better organization of code 2) fixed order of bounding box
 
 # Step 2
 Finish inference code of pix2seq and report performance on object detection benchmark.
