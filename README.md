@@ -29,4 +29,4 @@ Add tricks proposed in Pix2SEQ like droplayer, bounding box augmentation and so 
 
 
 # Acknowledegement 
-This codebase heavily borrow from DETR and CATR and motivated by the method explained in Pix2Seq
+This codebase heavily borrow from DETR, CART, minGPT and Fairseq and motivated by the method explained in Pix2Seq
