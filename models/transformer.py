@@ -15,6 +15,10 @@ import torch.nn.functional as F
 from torch import nn, Tensor
 import pdb
 
+
+"""
+Borrowed from CATR
+"""
 class DecoderEmbeddings(nn.Module):
     def __init__(self, vocab_size, hidden_dim, pad_token_id, max_position_embeddings, dropout):
         super().__init__()
