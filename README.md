@@ -1,4 +1,4 @@
-# Unofficial-Pix2Seq
+# Unofficial-Pix2seq: A Language Modeling Framework for Object Detection
 Unofficial implementation of Pix2SEQ. Please use this code with causion. Many implemtation details are not following original paper and significantly simplified. 
 
 # Aim
