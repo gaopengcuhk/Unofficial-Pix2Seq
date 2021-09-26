@@ -10,9 +10,9 @@ Starting from DETR, we add bounding box quantization over normalized coordinate,
 ## How to use?
 Install packages following original DETR and command line is same as DETR.
 
-‘’‘
-python -m torch.distributed.launch --master_port=2381 --nproc_per_node=1 --use_env main.py --coco_path ../../data/coco/
-’‘’
+```
+python -m torch.distributed.launch --nproc_per_node=8 --use_env main.py --coco_path ../../data/coco/
+```
 
 ## Released at 8pm, 26th, Seq
 Problem to be solved : 1) better logging 2) correct padding, end of sentence, start of sentence token 3) efficient padding 4) better organization of code 5) fixed order of bounding box 6) shared dictionary between position and category
