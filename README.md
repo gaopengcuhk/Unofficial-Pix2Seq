@@ -1,5 +1,5 @@
 # Unofficial-Pix2Seq
-Unofficial implementation of Pix2SEQ
+Unofficial implementation of Pix2SEQ. Please use this code with causion. Many implemtation details are not following original paper and significantly simplified. 
 
 # Aim
 This project aims for a step by step replication of Pix2Seq starting from DETR codebase. Unoffical-pix2seq will implement the idea step-by-step and perform ablation study over ideas proposed in pix2seq.
