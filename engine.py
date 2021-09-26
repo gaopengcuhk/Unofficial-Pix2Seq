@@ -21,11 +21,11 @@ def train_one_epoch(model: torch.nn.Module, criterion: torch.nn.Module,
     criterion.train()
     metric_logger = utils.MetricLogger(delimiter="  ")
     metric_logger.add_meter('lr', utils.SmoothedValue(window_size=1, fmt='{value:.6f}'))
-    metric_logger.add_meter('class_error', utils.SmoothedValue(window_size=1, fmt='{value:.2f}'))
     header = 'Epoch: [{}]'.format(epoch)
     print_freq = 10
-    for samples, targets in data_loader:
-#    for samples, targets in metric_logger.log_every(data_loader, print_freq, header):
+    for samples, targets in metric_logger.log_every(data_loader, print_freq, header):
+        #(x1 y1 x2 y2 label) * max_box + EOS
+        max_seq_length = max([len(target['boxes']) for target in targets]) * 5 + 1
         samples = samples.to(device)
         targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
         bins = 1000
@@ -34,12 +34,15 @@ def train_one_epoch(model: torch.nn.Module, criterion: torch.nn.Module,
         start = 2001
         padding = 2002
         end = 2000
+        category_start = 1500
         for target in targets:
             box = (target['boxes'] * (bins - 1)).int()
-            label = target['labels'].unsqueeze(-1)
+            label = target['labels'].unsqueeze(-1) + category_start
             box_label = torch.cat([box, label], dim=-1)
-            padding_box_label = (torch.ones(((num_box - box_label.shape[0]) * 5)) * padding).to(box_label).reshape(-1, 5)
-            box_label = torch.cat([box_label, padding_box_label], dim=0)
+            box_label = torch.cat([box_label.flatten(), torch.ones(1).to(box_label) * end])
+            if max_seq_length > len(box_label):
+               pad_seq = torch.ones(max_seq_length - len(box_label)).to(box_label) * padding
+               box_label = torch.cat([box_label, pad_seq])
             box_labels.append(box_label.unsqueeze(0))
         box_labels = torch.cat(box_labels, dim=0).flatten(1)
         outputs = model(samples, box_labels)
@@ -49,7 +52,6 @@ def train_one_epoch(model: torch.nn.Module, criterion: torch.nn.Module,
         loss_dict = {'at':loss}
         weight_dict = {'at':1}
         losses = sum(loss_dict[k] * weight_dict[k] for k in loss_dict.keys() if k in weight_dict)
-        print(losses)
         # reduce losses over all GPUs for logging purposes
         loss_dict_reduced = utils.reduce_dict(loss_dict)
         loss_dict_reduced_unscaled = {f'{k}_unscaled': v
@@ -75,9 +77,8 @@ def train_one_epoch(model: torch.nn.Module, criterion: torch.nn.Module,
         metric_logger.update(lr=optimizer.param_groups[0]["lr"])
     # gather the stats from all processes
     metric_logger.synchronize_between_processes()
-#    print("Averaged stats:", metric_logger)
-    return 0
-#    return {k: meter.global_avg for k, meter in metric_logger.meters.items()}
+    print("Averaged stats:", metric_logger)
+    return {k: meter.global_avg for k, meter in metric_logger.meters.items()}
 
 
 @torch.no_grad()
