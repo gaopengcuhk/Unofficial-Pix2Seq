@@ -94,7 +94,7 @@ class Transformer(nn.Module):
 
         memory = self.encoder(src, src_key_padding_mask=mask, pos=pos_embed)
         hs = self.decoder(tgt, memory, memory_key_padding_mask=mask,
-                          pos=pos_embed, query_pos=query_embed,
+                          pos=pos_embed, query_pos=query_embed[:len(tgt)],
                           tgt_mask=generate_square_subsequent_mask(len(tgt)).to(tgt.device))
         return hs.transpose(1, 2), memory.permute(1, 2, 0).view(bs, c, h, w)
 
