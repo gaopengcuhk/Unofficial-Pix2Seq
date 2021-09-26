@@ -7,6 +7,9 @@ This project aims for a step by step replication of Pix2Seq starting from DETR c
 # Step 1
 Starting from DETR, we add bounding box quantization over normalized coordinate, sequence generator from normalized coordinate, auto-regressive decoder and training code for Pix2SEQ.
 
+## Released at 26th, Seq
+Porblem to be solved : 1) better logging 2) correct padding, end of sentence, start of sentence token 3) efficient padding 4) better organization of code
+
 # Step 2
 Finish inference code of pix2seq and report performance on object detection benchmark.
 
