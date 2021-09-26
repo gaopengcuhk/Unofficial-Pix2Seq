@@ -21,10 +21,10 @@ Problem to be solved : 1) better logging 2) correct padding, end of sentence, st
 Problem to be solved: 1) better organization of code 2) fixed order of bounding box
 
 # Step 2
-Finish inference code of pix2seq and report performance on object detection benchmark.
+Finish inference code of pix2seq and report performance on object detection benchmark. Note that we are going to write an inefficent greedy decoding. 
 
 # Step 3
-Add tricks proposed in Pix2SEQ like droplayer, bounding box augmentation and so on.
+Add tricks proposed in Pix2SEQ like droplayer, bounding box augmentation, multiple crop augmentation and so on.
 
 
 
