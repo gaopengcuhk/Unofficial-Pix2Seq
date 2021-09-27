@@ -52,6 +52,7 @@ IoU metric: bbox
 (1). The sequence is tend to generate End of Sentence(EOS) early. After generating EOS token, langauge modeling will still genrate boudning box. (2). Repeatable sequence which is a common problem in seq2seq modeling. 
 
 ## Full inference code with model checkpoint will be released at 28th, Seq
+1). Add sequence likelihood evaluationn on validation dataset
 
 
 # Step 3
