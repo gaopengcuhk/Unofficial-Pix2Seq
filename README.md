@@ -48,6 +48,8 @@ IoU metric: bbox
  Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.350
 ```
 
+## Full inference code with model checkpoint will be released at 28th, Seq
+
 
 # Step 3
 Add tricks proposed in Pix2SEQ like droplayer, bounding box augmentation, multiple crop augmentation and so on.
