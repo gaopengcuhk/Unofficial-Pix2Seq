@@ -27,7 +27,6 @@ Finish inference code of pix2seq and report performance on object detection benc
 python -m torch.distributed.launch --nproc_per_node=8 --use_env main.py --coco_path ../../data/coco/  --eval --resume checkpoint.pth --batch_size 4
 ```
 
-```
 COCO bbox detection val5k evaluation results:
 ```
 IoU metric: bbox
