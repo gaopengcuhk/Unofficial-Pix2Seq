@@ -21,7 +21,7 @@ Problem to be solved : 1) better logging 2) correct padding, end of sentence, st
 Problem to be solved: 1) better organization of code 2) fixed order of bounding box
 
 # Step 2
-Finish inference code of pix2seq and report performance on object detection benchmark. Note that we are going to write an inefficent greedy decoding. The progress can be significantly accelerated by following cache previous state in Fairseq. The quality can be improved by nucleus sampling and beam search. We leave thiese complex but engineering trciks for future implementation and keep the project as simple as possible for understanding language modeling object detection.
+Finish inference code of pix2seq and report performance on object detection benchmark. Note that we are going to write an inefficent greedy decoding. The progress can be significantly accelerated by following cache previous state in Fairseq. The quality can be improved by nucleus sampling and beam search. We leave these complex but engineering tricks for future implementation and keep the project as simple as possible for understanding language modeling object detection.
 
 # Step 3
 Add tricks proposed in Pix2SEQ like droplayer, bounding box augmentation, multiple crop augmentation and so on.
