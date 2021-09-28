@@ -13,6 +13,7 @@ import util.misc as utils
 from datasets.coco_eval import CocoEvaluator
 from datasets.panoptic_eval import PanopticEvaluator
 import pdb
+from util import box_ops
 
 def train_one_epoch(model: torch.nn.Module, criterion: torch.nn.Module,
                     data_loader: Iterable, optimizer: torch.optim.Optimizer,
@@ -39,6 +40,8 @@ def train_one_epoch(model: torch.nn.Module, criterion: torch.nn.Module,
             box = (target['boxes'] * (bins - 1)).int()
             label = target['labels'].unsqueeze(-1) + category_start
             box_label = torch.cat([box, label], dim=-1)
+            idx = torch.randperm(box_label.shape[0])
+            box_label = box_label[idx]
             box_label = torch.cat([box_label.flatten(), torch.ones(1).to(box_label) * end])
             if max_seq_length > len(box_label):
                pad_seq = torch.ones(max_seq_length - len(box_label)).to(box_label) * padding
@@ -101,35 +104,34 @@ def evaluate(model, criterion, postprocessors, data_loader, base_ds, device, out
             data_loader.dataset.ann_folder,
             output_dir=os.path.join(output_dir, "panoptic_eval"),
         )
-
-    for samples, targets in metric_logger.log_every(data_loader, 10, header):
+    for samples, targets in data_loader:
         samples = samples.to(device)
         targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
-
-        outputs = model(samples)
-        loss_dict = criterion(outputs, targets)
-        weight_dict = criterion.weight_dict
-
-        # reduce losses over all GPUs for logging purposes
-        loss_dict_reduced = utils.reduce_dict(loss_dict)
-        loss_dict_reduced_scaled = {k: v * weight_dict[k]
-                                    for k, v in loss_dict_reduced.items() if k in weight_dict}
-        loss_dict_reduced_unscaled = {f'{k}_unscaled': v
-                                      for k, v in loss_dict_reduced.items()}
-        metric_logger.update(loss=sum(loss_dict_reduced_scaled.values()),
-                             **loss_dict_reduced_scaled,
-                             **loss_dict_reduced_unscaled)
-        metric_logger.update(class_error=loss_dict_reduced['class_error'])
-
-        orig_target_sizes = torch.stack([t["orig_size"] for t in targets], dim=0)
-        results = postprocessors['bbox'](outputs, orig_target_sizes)
-        if 'segm' in postprocessors.keys():
-            target_sizes = torch.stack([t["size"] for t in targets], dim=0)
-            results = postprocessors['segm'](results, outputs, orig_target_sizes, target_sizes)
+        seq = torch.ones(len(targets), 1).to(samples.mask) * 2001
+        outputs = model(samples, seq)
+        batch_index = 0
+        results = []
+        outputs, values = outputs
+        for output in outputs:
+            for i in range(101):
+                if output[i] == 2000:
+                   break
+            if output[1:i].shape[0] == 99:
+               i = 101
+            output = output[1:i].reshape(-1, 5)
+            box = output[:, :4].clip(0, 999).float() / (1000 - 1)
+            box = box_ops.box_cxcywh_to_xyxy(box)
+            label = output[:, 4].unsqueeze(-1) - 1500
+            orig_size = targets[batch_index]["orig_size"]
+            img_h, img_w = orig_size[0], orig_size[1]
+            scale_fct = torch.stack([img_w, img_h, img_w, img_h]).unsqueeze(0)
+            box = scale_fct * box
+            value = values[batch_index][:(i-1)].reshape(-1, 5)[:, -1] 
+            results.append({'scores': value, 'labels': label.squeeze(-1), 'boxes': box})
+            batch_index = batch_index + 1
         res = {target['image_id'].item(): output for target, output in zip(targets, results)}
         if coco_evaluator is not None:
             coco_evaluator.update(res)
-
         if panoptic_evaluator is not None:
             res_pano = postprocessors["panoptic"](outputs, target_sizes, orig_target_sizes)
             for i, target in enumerate(targets):
@@ -140,9 +142,6 @@ def evaluate(model, criterion, postprocessors, data_loader, base_ds, device, out
 
             panoptic_evaluator.update(res_pano)
 
-    # gather the stats from all processes
-    metric_logger.synchronize_between_processes()
-    print("Averaged stats:", metric_logger)
     if coco_evaluator is not None:
         coco_evaluator.synchronize_between_processes()
     if panoptic_evaluator is not None:

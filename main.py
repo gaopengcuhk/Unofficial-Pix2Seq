@@ -21,7 +21,7 @@ def get_args_parser():
     parser = argparse.ArgumentParser('Set transformer detector', add_help=False)
     parser.add_argument('--lr', default=1e-4, type=float)
     parser.add_argument('--lr_backbone', default=1e-5, type=float)
-    parser.add_argument('--batch_size', default=8, type=int)
+    parser.add_argument('--batch_size', default=128, type=int)
     parser.add_argument('--weight_decay', default=1e-4, type=float)
     parser.add_argument('--epochs', default=300, type=int)
     parser.add_argument('--lr_drop', default=200, type=int)
@@ -215,14 +215,14 @@ def main(args):
 #            model, criterion, postprocessors, data_loader_val, base_ds, device, args.output_dir
 #        )
 
-#        log_stats = {**{f'train_{k}': v for k, v in train_stats.items()},
+        log_stats = {**{f'train_{k}': v for k, v in train_stats.items()},
 #                     **{f'test_{k}': v for k, v in test_stats.items()},
-#                     'epoch': epoch,
-#                     'n_parameters': n_parameters}
+                     'epoch': epoch,
+                     'n_parameters': n_parameters}
 
-#        if args.output_dir and utils.is_main_process():
-#            with (output_dir / "log.txt").open("a") as f:
-#                f.write(json.dumps(log_stats) + "\n")
+        if args.output_dir and utils.is_main_process():
+            with (output_dir / "log.txt").open("a") as f:
+                f.write(json.dumps(log_stats) + "\n")
 
             # for evaluation logs
 #            if coco_evaluator is not None:
