@@ -60,8 +60,11 @@ class DETR(nn.Module):
 
         src, mask = features[-1].decompose()
         assert mask is not None
-        hs = self.transformer(self.input_proj(src), mask, None, pos[-1], sequence)[0]
-        out = self.vocab_embed(hs)
+        hs = self.transformer(self.input_proj(src), mask, None, pos[-1], sequence, self.vocab_embed)
+        if self.training:
+           out = self.vocab_embed(hs[0])
+        else:
+           out = hs
         return out
 
     @torch.jit.unused

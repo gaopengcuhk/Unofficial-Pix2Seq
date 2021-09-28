@@ -15,10 +15,6 @@ import torch.nn.functional as F
 from torch import nn, Tensor
 import pdb
 
-
-"""
-Borrowed from CATR
-"""
 class DecoderEmbeddings(nn.Module):
     def __init__(self, vocab_size, hidden_dim, pad_token_id, max_position_embeddings, dropout):
         super().__init__()
@@ -80,7 +76,7 @@ class Transformer(nn.Module):
             if p.dim() > 1:
                 nn.init.xavier_uniform_(p)
 
-    def forward(self, src, mask, query_embed, pos_embed, seq):
+    def forward(self, src, mask, query_embed, pos_embed, seq, vocab_embed):
         # flatten NxCxHxW to HWxNxC
         bs, c, h, w = src.shape
         seq = torch.cat([torch.ones((bs, 1)).to(seq) * 2001, seq[:, :-1]], dim=1)
@@ -93,10 +89,30 @@ class Transformer(nn.Module):
         query_embed = query_embed.repeat(1, bs, 1)
 
         memory = self.encoder(src, src_key_padding_mask=mask, pos=pos_embed)
-        hs = self.decoder(tgt, memory, memory_key_padding_mask=mask,
+
+        if self.training:
+           hs = self.decoder(tgt, memory, memory_key_padding_mask=mask,
                           pos=pos_embed, query_pos=query_embed[:len(tgt)],
                           tgt_mask=generate_square_subsequent_mask(len(tgt)).to(tgt.device))
-        return hs.transpose(1, 2), memory.permute(1, 2, 0).view(bs, c, h, w)
+           return hs.transpose(1, 2), memory.permute(1, 2, 0).view(bs, c, h, w)
+        else:
+           values = []
+           for i in range(101):
+               tgt = self.embedding(seq).permute(1, 0, 2)
+               query_embed = self.embedding.position_embeddings.weight.unsqueeze(1)
+               query_embed = query_embed.repeat(1, bs, 1)
+               hs = self.decoder(tgt, memory, memory_key_padding_mask=mask,
+                          pos=pos_embed, query_pos=query_embed[:len(tgt)],
+                          tgt_mask=generate_square_subsequent_mask(len(tgt)).to(tgt.device))
+               out = vocab_embed(hs.transpose(1, 2)[-1, :, -1, :])
+               out = out.softmax(-1)
+               if i in [0, 1, 2, 3]:
+                  out = out[:, :1000]
+               value, extra_seq = out.topk(dim=-1, k=1)[0], out.topk(dim=-1, k=1)[1]
+               seq = torch.cat([seq, extra_seq], dim=-1)
+               values.append(value)
+           seq[:, -1] = 2000
+           return seq, torch.cat(values, dim=-1)
 
 
 
