@@ -31,7 +31,7 @@ python -m torch.distributed.launch --nproc_per_node=8 --use_env main.py --coco_p
 
 After 30 epoches training, our replication of pix2seq can achieve 12.1 mAP on MSCOCO. Image resolution 512 for fast training. 
 
-COCO bbox detection val5k evaluation results:
+COCO bbox detection val5k evaluation with maximum 25 boundingx box predictions (Original paper 100 bounding box):
 ```
 IoU metric: bbox
  Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.121
@@ -50,7 +50,7 @@ IoU metric: bbox
 
 After 107 epoches training, our replication of pix2seq can achieve 17.9 mAP on MSCOCO. Image resolution 512 for fast training. Checkpoint can be downloaded at [here](https://drive.google.com/file/d/1EJnBaeg6R2nASdyZbkDx1q5nTpjPGGev/view?usp=sharing).
 
-COCO bbox detection val5k evaluation results:
+COCO bbox detection val5k evaluation with maximum 25 boundingx box predictions (Original paper 100 bounding box):
 ```
  Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.179
  Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.314
