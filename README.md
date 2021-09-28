@@ -29,7 +29,7 @@ Finish inference code of pix2seq and report performance on object detection benc
 python -m torch.distributed.launch --nproc_per_node=8 --use_env main.py --coco_path ../../data/coco/  --eval --resume checkpoint.pth --batch_size 4
 ```
 
-After 30 epoches training, our replication of pix2seq can achieve 12.1 mAP on MSCOCO. 
+After 30 epoches training, our replication of pix2seq can achieve 12.1 mAP on MSCOCO. Image resolution 512 for fast training. 
 
 COCO bbox detection val5k evaluation results:
 ```
@@ -48,7 +48,7 @@ IoU metric: bbox
  Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.350
 ```
 
-After 107 epoches training, our replication of pix2seq can achieve 17.9 mAP on MSCOCO. . 
+After 107 epoches training, our replication of pix2seq can achieve 17.9 mAP on MSCOCO. Image resolution 512 for fast training. 
 
 COCO bbox detection val5k evaluation results:
 ```
