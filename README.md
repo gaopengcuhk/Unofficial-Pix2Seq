@@ -66,6 +66,8 @@ COCO bbox detection val5k evaluation with maximum 25 boundingx box predictions (
  Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.469
  ```
  After 213 epoches training, our replication of pix2seq can achieve 26.4 mAP on MSCOCO. Image resolution 1333 after 150 epochs for better training. Checkpoint can be downloaded at [here](https://drive.google.com/file/d/1NHLO45AoYC2ohZ11U33XKvQWCe2ZXlzo/view?usp=sharing).
+ 
+ COCO bbox detection val5k evaluation with maximum 25 boundingx box predictions (Original paper 100 bounding box):
  ```
 Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.264
  Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.423
