@@ -149,7 +149,7 @@ Low Precision, High Recall when ignore EOS, 512 resolution, maxmium 60 boudning 
 
 ```
 
-Position Prediction Distribution Vislization:
+Position Distribution (Multiple plausable position):
 ![Distribution](distribution.jpg)
 
 ## Released at 10am, 28th, Seq
