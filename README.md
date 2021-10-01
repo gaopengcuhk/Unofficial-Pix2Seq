@@ -149,6 +149,9 @@ Low Precision, High Recall when ignore EOS, 512 resolution, maxmium 60 boudning 
 
 ```
 
+Position Prediction Distribution Vislization:
+![Distribution](distribution.jpg)
+
 ## Released at 10am, 28th, Seq
 Problem to be solved : 1). Add sequence likelihood evaluationn on validation dataset. 2) Better organization of code. 3) FP16 support. 4) Beam Search
 
