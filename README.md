@@ -86,7 +86,7 @@ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.264
 ## Observation
 (1). The sequence is tend to generate End of Sentence(EOS) early. After generating EOS token, langauge modeling will still genrate boudning box. (2). Repeatable sequence which is a common problem in seq2seq modeling. (3) end prediction when meet with 'EOS' token will generate high Precision but low recall.
 
-High Precision, Low Recall when use EOS
+High Precision, Low Recall when use EOS, 512 resolution, maxmium 20 boudning box
 ```
  Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.199
  Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.346
@@ -102,7 +102,7 @@ High Precision, Low Recall when use EOS
  Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.519
 ```
 
-Low Precision, High Recall when ignore EOS
+Low Precision, High Recall when ignore EOS, 512 resolution, maxmium 20 boudning box
 ```
  Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.193
  Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.345
@@ -116,6 +116,36 @@ Low Precision, High Recall when ignore EOS
  Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.057
  Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.301
  Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.566
+```
+Low Precision, High Recall when ignore EOS, 512 resolution, maxmium 40 boudning box
+```
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.192
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.341
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.187
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.027
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.192
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.386
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.215
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.298
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.306
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.064
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.311
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.562
+```
+Low Precision, High Recall when ignore EOS, 512 resolution, maxmium 60 boudning box
+```
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.192
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.341
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.187
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.027
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.192
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.386
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.215
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.298
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.306
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.064
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.311
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.562
 ```
 
 ## Released at 10am, 28th, Seq
