@@ -65,6 +65,10 @@ COCO bbox detection val5k evaluation with maximum 25 boundingx box predictions (
  Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.210
  Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.469
  ```
+ 
+ Vislizization of Pix2Seq detection results(mAP 17.9) on MSCOCO.
+ 
+ 
  After 213 epoches training, our replication of pix2seq can achieve 26.4 mAP on MSCOCO. Image resolution 1333 after 150 epochs for better training. Checkpoint can be downloaded at [here](https://drive.google.com/file/d/1NHLO45AoYC2ohZ11U33XKvQWCe2ZXlzo/view?usp=sharing).
  
  COCO bbox detection val5k evaluation with maximum 25 boundingx box predictions (Original paper 100 bounding box):
@@ -161,7 +165,8 @@ Add tricks proposed in Pix2SEQ like droplayer, bounding box augmentation, multip
 ## To be released at 10th, Oct
 We add sequence augmentation, token dropout, warmup, linear learning rate decay, drop layer and instance Repetition .
 
-
+# Contributor
+Peng Gao, Jingqiu Zhou
 
 # Acknowledegement 
 This codebase heavily borrow from DETR, CART, minGPT and Fairseq and motivated by the method explained in Pix2Seq
