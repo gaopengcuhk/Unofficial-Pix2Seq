@@ -1,6 +1,8 @@
 # Unofficial-Pix2seq: A Language Modeling Framework for Object Detection
 Unofficial implementation of Pix2SEQ. Please use this code with causion. Many implemtation details are not following original paper and significantly simplified. 
 
+# Please check new codebase [Stable-Pix2Seq](https://github.com/gaopengcuhk/Stable-Pix2Seq)
+
 # Aim
 This project aims for a step by step replication of Pix2Seq starting from DETR codebase. 
 
