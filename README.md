@@ -166,6 +166,8 @@ Position Distribution (Multiple plausable position):
 ![Distribution](distribution.jpg)
 
 ## Released at 10am, 28th, Seq
+
+Please refer to [Stable-Pix2Seq](https://github.com/gaopengcuhk/Stable-Pix2Seq) for a full-fledged Pix2Seq.
 Problem to be solved : 1). Add sequence likelihood evaluationn on validation dataset. 2) Better organization of code. 3) FP16 support. 4) Beam Search
 
 
