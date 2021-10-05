@@ -172,7 +172,7 @@ Problem to be solved : 1). Add sequence likelihood evaluationn on validation dat
 # Step 3
 Add tricks proposed in Pix2SEQ like droplayer, bounding box augmentation, multiple crop augmentation and so on.
 ## To be released at 10th, Oct
-We add sequence augmentation, token dropout, warmup, linear learning rate decay, drop layer and instance Repetition .
+We add sequence augmentation, token dropout, warmup, linear learning rate decay, drop layer and instance Repetition. We observer signifcnat improvement over original version. We follow the original schedule to train the model. We expect the training can be finished with 10 days on 1333 resolution with 300 epoches training. 
 
 # Contributor
 Peng Gao, Jingqiu Zhou
