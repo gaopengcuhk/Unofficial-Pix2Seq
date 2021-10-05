@@ -67,6 +67,11 @@ COCO bbox detection val5k evaluation with maximum 25 boundingx box predictions (
  ```
  
  Vislizization of Pix2Seq detection results(mAP 17.9) on MSCOCO.
+ 
+ ```
+ python  predict.py --resume ./output/gaopeng/checkpoint.pth\
+                   --img_path ./data/coco/val2017/000000157098.jpg
+ ```
 
 ![demo1](demo1.PNG)
  
