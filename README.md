@@ -67,7 +67,12 @@ COCO bbox detection val5k evaluation with maximum 25 boundingx box predictions (
  ```
  
  Vislizization of Pix2Seq detection results(mAP 17.9) on MSCOCO.
+
+![demo1](demo1.PNG)
  
+![demo2](demo2.PNG)
+ 
+![demo3](demo3.PNG)
  
  After 213 epoches training, our replication of pix2seq can achieve 26.4 mAP on MSCOCO. Image resolution 1333 after 150 epochs for better training. Checkpoint can be downloaded at [here](https://drive.google.com/file/d/1NHLO45AoYC2ohZ11U33XKvQWCe2ZXlzo/view?usp=sharing).
  
